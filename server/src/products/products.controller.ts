@@ -8,7 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
-@Controller('products')
+@Controller('api')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 

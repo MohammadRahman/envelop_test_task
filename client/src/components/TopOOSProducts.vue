@@ -148,7 +148,7 @@ export default defineComponent({
 
             async fetchProducts() {
             try {
-                const response = await memoizedAxiosGet('http://localhost:3009/products');
+                const response = await memoizedAxiosGet('http://localhost:3009/api');
                 return response.data;
             } catch (error) {
                 console.error('Error fetching products:', error);

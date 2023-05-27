@@ -1,37 +1,37 @@
 version: '3'
 services:
-  api:
+  test_task-nginx:
+    restart: always
+    image: nginx:latest
     build:
+      context: ./nginx
       dockerfile: Dockerfile
+    ports:
+      - '3050:3050'
+    depends_on:
+      - test_task-api
+      - test_task-client
+
+  test_task-api:
+    build:
       context: ./server
+      dockerfile: Dockerfile
     ports:
       - '3009:3009'
     volumes:
       - '/app/node_modules'
       - './server:/app'
-  nginx:
-    restart: always
-    image: 
-      'nginx:latest'
-    build:
-      dockerfile: Dockerfile
-      context: ./nginx
-    ports:
-      - '3050:3051'
-    depends_on:
-      - api
-      - client
-  client:
+
+  test_task-client:
     build:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - '5173:80'
+      - '5173:5173'
     volumes:
       - '/app/node_modules'
       - './client:/app'
-    command: npm run start
-    depends_on:
-      - api
+    command: npm run dev
+
   mongo:
-   image: mongo
+    image: mongo
