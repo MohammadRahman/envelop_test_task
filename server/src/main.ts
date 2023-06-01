@@ -8,9 +8,19 @@ async function bootstrap() {
   app.use(json({ limit: '50mb' })); // Set the desired limit
   app.use(urlencoded({ extended: true, limit: '50mb' }));
   app.enableCors({
-    origin: 'http://localhost:5173', // Set the allowed origin(s)
+    origin: ['http://localhost:81'], // Set the allowed origin(s)
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type,Authorization',
+  });
+
+  app.use((req, res, next) => {
+    res.on('finish', () => {
+      console.log(
+        'CORS headers:',
+        res.getHeaders()['access-control-allow-origin'],
+      );
+    });
+    next();
   });
   await app.listen(3009);
 }

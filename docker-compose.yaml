@@ -1,37 +1,65 @@
-version: '3'
+version: "3"
 services:
-  test_task-nginx:
-    restart: always
-    image: nginx:latest
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    ports:
-      - '3050:3050'
-    depends_on:
-      - test_task-api
-      - test_task-client
-
-  test_task-api:
+  backend:
     build:
       context: ./server
       dockerfile: Dockerfile
     ports:
-      - '3009:3009'
-    volumes:
-      - '/app/node_modules'
-      - './server:/app'
-
-  test_task-client:
+      - "3009:3009"
+    networks:
+      - shared-network
+    env_file:
+      - ./server/.env
+    depends_on:
+      - frontend
+  frontend:
     build:
       context: ./client
       dockerfile: Dockerfile
-    ports:
-      - '5173:5173'
     volumes:
-      - '/app/node_modules'
-      - './client:/app'
-    command: npm run dev
-
+      - ./client/nginx:/etc/nginx/conf.d
+    ports:
+      - "81:80"
+    networks:
+      - shared-network
   mongo:
     image: mongo
+networks:
+  shared-network:
+
+# version: '3'
+# services:
+#   mongo:
+#     image: mongo
+#     networks:
+#       - shared-network
+#   server:
+#    container_name: envelop_api
+#    restart: unless-stopped
+#    image: nestjs-api:1.0.0
+#    build:
+#     context: server
+#     target: production
+#     dockerfile: Dockerfile
+#    ports:
+#      - 3009:3009
+#    networks:
+#      - shared-network
+#    depends_on:
+#      - mongo
+#   client:
+#     container_name: envelop_frontend
+#     restart: unless-stopped
+#     image: envelop_frontend:1.0.0
+#     build:
+#       context: client
+#       dockerfile: Dockerfile
+#     ports:
+#       - 5137:5137
+#     networks:
+#       - shared-network
+#     depends_on:
+#       - server
+# networks:
+#   shared-network:
+   

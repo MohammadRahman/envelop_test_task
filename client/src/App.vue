@@ -47,6 +47,13 @@
   <div class="container fluid">
     <div class="row pt-5">
       <div class="col-6 stock">
+          <!-- <stock-timeline-chart
+           :selectedProductCode="selectedProductCode"
+           :selectedTimeRangeStart="selectedTimeRangeStart" 
+           :selectedTimeRangeEnd="selectedTimeRangeEnd"
+           :data="chartData"
+           /> -->
+           <!-- :data="chartData" -->
         <stock-time-line 
          :products="selectedProductCode"
          :selectedTimeRangeStart="selectedTimeRangeStart" 
@@ -76,6 +83,8 @@ import {
   BarElement,
   CategoryScale,
   LinearScale,
+// ChartData,
+// Point,
 } from 'chart.js'
 import { Bar } from 'vue-chartjs'
 
@@ -92,7 +101,7 @@ export default {
          selectedTimeRangeStart: '',
           selectedTimeRangeEnd: '',
           selectedProductCode: [],
-          option: ['SKU001','SKU002','SKU003','SKU004','SKU005']
+          option: ['SKU001', 'SKU002', 'SKU003', 'SKU004', 'SKU005'],
         }
   },
   methods: {

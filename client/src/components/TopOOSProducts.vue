@@ -50,7 +50,7 @@ export default defineComponent({
     },
   },
   async mounted() {
-    this.products = await this.fetchProducts()
+    this.products = await this.fetchProducts();
     this.processTopOOSProducts();
   },
   watch: {

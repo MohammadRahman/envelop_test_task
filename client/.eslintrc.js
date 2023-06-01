@@ -1,0 +1,71 @@
+module.exports = {
+  root: true,
+  env: {
+    es2021: true,
+  },
+  extends: [
+    "airbnb-base",
+    "plugin:vue/recommended",
+    "plugin:sonarjs/recommended",
+    "@vue/eslint-config-airbnb",
+  ],
+  plugins: ["vue", "sonarjs"],
+  rules: {
+    "vuejs-accessibility/click-events-have-key-events": "off",
+    "vuejs-accessibility/form-control-has-label": "off",
+    "vuejs-accessibility/heading-has-content": "off",
+    "vuejs-accessibility/interactive-supports-focus": "off",
+    "vuejs-accessibility/label-has-for": "off",
+    "vuejs-accessibility/mouse-events-have-key-events": "off",
+    "vuejs-accessibility/role-has-required-aria-props": "off",
+    "vuejs-accessibility/tabindex-no-positive": "off",
+    "prefer-regex-literals": "off",
+    "prefer-destructuring": "off",
+    "prefer-promise-reject-errors": "off",
+    "default-param-last": "off",
+    "max-len": "off",
+    "class-methods-use-this": "off",
+    "linebreak-style": 0,
+    // Don't require .vue/.js extension when importing
+    "import/extensions": [
+      "error",
+      "always",
+      {
+        js: "never",
+        vue: "never",
+      },
+    ],
+    "arrow-parens": ["error", "always"],
+    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "no-shadow": ["error", { allow: ["state", "getters"] }],
+    "no-param-reassign": "off",
+    "no-await-in-loop": "off",
+    "no-continue": "off",
+    "no-underscore-dangle": "off",
+    "no-async-promise-executor": "off",
+    "no-restricted-syntax": "off",
+    "import/prefer-default-export": "off",
+    "vue/max-len": "off",
+    "vue/no-mutating-props": "off",
+    // TODO: This rules should be a priority to enable before vue 3 migration
+    "vue/no-v-html": "off",
+    "vue/html-button-has-type": "off",
+    "vue/multi-word-component-names": "off",
+    "sonarjs/cognitive-complexity": "off",
+    "sonarjs/no-duplicate-string": "off",
+    "sonarjs/no-nested-switch": "off",
+  },
+  settings: {
+    "import/resolver": {
+      node: {
+        extensions: [".js", ".jsx", ".ts", ".tsx", ".vue", "svg"],
+        moduleDirectory: ["node_modules", "src/"],
+      },
+      alias: {
+        extensions: [".js", ".jsx", ".ts", ".tsx", ".vue", "svg"],
+        map: [["@", "./src"]],
+      },
+    },
+  },
+};
